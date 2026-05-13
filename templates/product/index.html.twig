@@ -8,7 +8,7 @@
 
         <!-- Colonne Image -->
         <div class="w-full md:w-1/2 p-0 relative h-fit">
-            <img src="{{ asset('img/trashbag_img.jpg') }}" class="w-full h-[686px] object-cover object-center" alt="test">
+            <img src="{{ asset('product_img/' ~ product.picture) }}" class="w-full h-[686px] object-cover object-center" alt="{{ product.name }}">
         </div>
 
         <!-- Colonne Infos -->
@@ -16,12 +16,12 @@
             <div class="w-full">
                 <div class="mx-0 mt-8 lg:mt-16 lg:mx-20 p-0 lg:p-6 lg:pr-20 mb-10">
                     <h2 class="text-2xl font-semibold text-gray-900 mb-4 leading-tight">
-                        titre du produit
+                        {{ product.name }}
                     </h2>
-                    <p class="text-[30px] mb-12">19.99 €</p>
+                    <p class="text-[30px] mb-12">{{ product.price|number_format(2, ',', ' ') }} €</p>
 
                     <p class="text-[10px] font-semibold text-gray-400 mb-2">Description</p>
-                    <p class="text-[14px] leading-relaxed text-[#666666] mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p class="text-[14px] leading-relaxed text-[#666666] mb-8">{{ product.fullDescription }}</p>
 
                 </div>
             </div>
