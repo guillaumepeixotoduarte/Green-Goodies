@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\DataFixtures\UserFixtures;
 use App\Entity\Product;
 use Faker\Factory;
 
@@ -31,10 +30,4 @@ class ProductFixtures extends Fixture
         $manager->flush();
     }
 
-    public function getDependencies(): array
-    {
-        return [
-            ProductFixtures::class,
-        ];
-    }
 }
