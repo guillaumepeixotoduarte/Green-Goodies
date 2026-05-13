@@ -32,36 +32,18 @@
     <div id="products" class="">
         <h2 class="px-4 text-[14px] font-medium text-gray-900 mx-[50px] my-6 uppercase">Nos produits</h2>
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xxl:grid-cols-4">
-            {# {% for book in books %} #}
+        <div class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+            {% for product in products %}
                 <div class="w-full bg-white h-100">
-                    <img src="{{ asset('img/login_img.jpg') }}" alt="test" class="w-full h-[480px] object-cover">
+                    <img src="{{ asset('product_img/' ~ product.picture) }}" alt="{{ product.name }}" class="w-full h-[480px] object-cover">
                     <div class="p-4 text-center bg-[#FFFDF7]">
-                        <h3 class="text-lg font-semibold text-gray-900 mt-4">test</h3>
-                         <p class="text-gray-500 mb-4">description du produit</p>
-                        <p class="mb-8">19.99 €</p>
-                        <a href="" class="text-primary hover:underline">Voir le produit</a>
+                        <h3 class="text-lg font-semibold text-gray-900 mt-4">{{ product.name }}</h3>
+                         <p class="text-gray-500 mb-4">{{ product.shortDescription }}</p>
+                        <p class="mb-8">{{ product.price }} €</p>
+                        <a href="{{ path('app_product', {id: product.id}) }}" class="text-primary hover:underline">Voir le produit</a>
                     </div>
                 </div>
-                <div class="w-full bg-white h-100">
-                    <img src="{{ asset('img/login_img.jpg') }}" alt="test" class="w-full h-[480px] object-cover">
-                    <div class="p-4 text-center bg-[#FFFDF7]">
-                        <h3 class="text-lg font-semibold text-gray-900 mt-4">test</h3>
-                         <p class="text-gray-500 mb-4">description du produit</p>
-                        <p class="mb-8">19.99 €</p>
-                        <a href="" class="text-primary hover:underline">Voir le produit</a>
-                    </div>
-                </div>
-                <div class="w-full bg-white h-100">
-                    <img src="{{ asset('img/login_img.jpg') }}" alt="test" class="w-full h-[480px] object-cover">
-                    <div class="p-4 text-center bg-[#FFFDF7]">
-                        <h3 class="text-lg font-semibold text-gray-900 mt-4">test</h3>
-                         <p class="text-gray-500 mb-4">description du produit</p>
-                        <p class="mb-8">19.99 €</p>
-                        <a href="" class="text-primary hover:underline">Voir le produit</a>
-                    </div>
-                </div>
-            {# {% endfor %} #}
+            {% endfor %}
         </div>
     </div>
     <div>
