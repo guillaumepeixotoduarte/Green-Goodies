@@ -3,7 +3,7 @@
 {% block title %}Nom produit{% endblock %}
 
 {% block body %}
-<div class="w-full m-0 bg-[#FFFDF7]">
+<div class="w-full min-h-[inherit] m-0 bg-[#FFFDF7]">
     <div class="flex flex-wrap">
 
         <!-- Colonne Image -->
@@ -13,16 +13,45 @@
 
         <!-- Colonne Infos -->
         <div class="w-full md:w-1/2 px-4 lg:px-0">
-            <div class="w-full">
-                <div class="mx-0 mt-8 lg:mt-16 lg:mx-20 p-0 lg:p-6 lg:pr-20 mb-10">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4 leading-tight">
-                        {{ product.name }}
-                    </h2>
-                    <p class="text-[30px] mb-12">{{ product.price|number_format(2, ',', ' ') }} €</p>
+            <div class="w-full h-full px-28 pt-16">
+                <div class="flex flex-col h-full justify-between">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4 leading-tight">
+                            {{ product.name }}
+                        </h2>
+                        <p class="text-[30px] mb-12">{{ product.price|number_format(2, ',', ' ') }} €</p>
 
-                    <p class="text-[10px] font-semibold text-gray-400 mb-2">Description</p>
-                    <p class="text-[14px] leading-relaxed text-[#666666] mb-8">{{ product.fullDescription }}</p>
+                        <p class="text-[10px] font-semibold text-gray-400 mb-2">Description</p>
+                        <p class="text-[14px] leading-relaxed text-[#666666] mb-8">{{ product.fullDescription }}</p>
+                    </div>
 
+                    {% if(app.user) %}
+
+                        <form action="{{ path('cart_add', {'id': product.id}) }}" method="POST" class="flex items-center gap-4">
+
+                            <!-- Sélecteur de quantité -->
+                            {% set panier = app.session.get('panier', []) %}
+                            {% if panier[product.id] is defined %}
+                                <div class="flex items-center border border-gray-300 h-full bg-gray-50">
+                                    <label for="quantity" class="sr-only">Quantité</label>
+                                    <input type="number"
+                                        id="quantity"
+                                        name="quantity"
+                                        value="{{ panier[product.id].quantity|default(1) }}"
+                                        min="0"
+                                        class="w-16 text-center bg-transparent p-2 font-semibold text-gray-700 outline-none">
+                                </div>
+                            {% else %}
+                                <input type="hidden" name="quantity" value="1">
+                            {% endif %}
+
+                            <button type="submit" class="p-6 bg-[#565656] text-white block w-full text-center">Ajouter au panier</button>
+
+                        </form>
+
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="p-6 bg-[#565656] text-white block w-full text-center">Connectez-vous pour acheter</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

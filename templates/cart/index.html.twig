@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+<div class="bg-[#F7F1EC] w-full flex flex-col flex-wrap flex-grow overflow-hidden  ">
+    <h1 class="text-xl text-center font-semibold my-8">Mon panier</h1>
+    {% if items|length > 0 %}
+        <div class="w-1/2 mx-auto flex justify-start">
+            <a href="{{ path('cart_clear') }}" class="text-[#565656]">x Vider le panier</a>
+        </div>
+        <div class="w-1/2 mx-auto bg-[#FFFDF7] mt-4 px-12 py-8">
+            <table class="w-full text-left border-collapse">
+                <tbody class="divide-y divide-[#CCCCCC]">
+                    {% for item in items %}
+                        <tr class="">
+                            <td class="py-4">
+                                <img src="{{ asset('product_img/' ~ item.product.picture) }}" class="w-[142px] h-[132px] object-cover object-center" alt="{{ item.product.name }}">
+                            </td>
+                            <td class="py-4">
+                                <p class="font-semibold">{{ item.product.name }}</p>
+                                <p>Quantité: {{ item.quantity }}</p>
+                                <p class="text-[20px] font-medium mt-4">{{ item.price|number_format(2, ',', ' ') }} €</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="w-1/2 mx-auto mt-2 bg-[#FFFDF7] px-12 py-4">
+            <h2 class="text-[14px] text-end font-semibold">Total panier : <span class="text-[20px]">{{ total|number_format(2, ',', ' ') }} €</span></h2>
+            <h2 class="text-[12px] text-end text-[#666666]">Frais de livraison : Offert </h2>
+        </div>
+        <div class="w-1/2 mx-auto mt-2 px-12 py-6">
+            <form action="{{ path('cart_validate') }}" method="POST">
+                <button type="submit" class="w-full p-6 bg-[#565656] text-white block text-center">Valider la commande</button>
+            </form>
+        </div>
+    {% else %}
+        <div class="w-1/2 mx-auto bg-[#FFFDF7] mt-4 px-12 py-8">
+            <p class="text-center text-gray-500">Votre panier est vide.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
