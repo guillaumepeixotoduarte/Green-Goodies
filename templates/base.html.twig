@@ -50,14 +50,14 @@
                                 <a href="{{ path('app_home') }}#products" class="block py-2 pr-4 pl-3 text-gray-700 hover:text-primary lg:p-0">Nos Produits</a>
                             </li>
                             <li class="flex items-center">
-                                <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 lg:p-0">Mon Panier</a>
+                                <a href="{{ path('app_cart') }}" class="block py-2 pr-4 pl-3 text-gray-700 lg:p-0">Mon Panier</a>
                             </li>
                         </ul>
 
-                        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-6 lg:mt-0 text-[14px] lg:ml-6 lg:pl-3">
+                        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 text-[14px] lg:ml-6 lg:pl-3">
                             {% if app.user %}
                                 <li class="flex items-center">
-                                    <a href="{{ path('app_user_account') }}" class="block py-2 pr-4 pl-3 text-gray-700 lg:p-0 font-bold">
+                                    <a href="{{ path('app_user_account') }}" class="block py-2 pr-4 pl-3 text-gray-700 lg:p-0">
                                         Mon compte
                                     </a>
                                 </li>
