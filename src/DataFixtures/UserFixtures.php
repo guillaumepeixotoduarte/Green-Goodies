@@ -26,6 +26,7 @@ class UserFixtures extends Fixture
         $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
         $user->setFirstname('John');
         $user->setLastname('Doe');
+        $user->setApiAccess(false);
 
         $manager->persist($user);
 
