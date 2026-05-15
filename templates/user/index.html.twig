@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+<div class="bg-[#F7F1EC] w-full flex flex-col flex-wrap flex-grow overflow-hidden  ">
+    <h1 class="text-xl text-center font-semibold my-8">Mon compte</h1>
+    <div class="w-1/2 mx-auto bg-[#FFFDF7] p-12">
+        <h2 class="text-md font-semibold mb-6">Mes commandes</h2>
+        {% if orders|length > 0 %}
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr>
+                        <th class="w-[40%] font-normal text-left text-sm text-gray-500">N°</th>
+                        <th class="w-[50%] font-normal text-left text-sm text-gray-500">Date</th>
+                        <th class="w-[10%] font-normal text-left text-sm text-gray-500">Prix</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#CCCCCC]">
+                    {% for order in orders %}
+                        <tr class="">
+                            <td class="py-4">{{ order.id }}</td>
+                            <td class="py-4">{{ order.createdAt|date('d/m/Y') }}</td>
+                            <td class="py-4">{{ order.total|number_format(2, ',', ' ') }} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center text-gray-500">Vous n'avez pas encore passé de commande.</p>
+        {% endif %}
+    </div>
+    <div class="w-1/2 mx-auto mt-6 bg-[#FFFDF7] p-12">
+        <h2 class="text-md font-semibold mb-6">Mon accès API</h2>
+        <form action="{{ path('app_user_toggle_api') }}" method="POST">
+            <button type="submit" class="mt-4 w-full bg-[#565656] text-white p-6">
+                {% if app.user.apiAccess %}
+                    Désactiver mon accès API
+                {% else %}
+                    Activer mon accès API
+                {% endif %}
+            </button>
+        </form>
+    </div>
+    <div class="w-1/2 mx-auto mt-6 bg-[#FFFDF7] p-12">
+        <button class="w-full bg-[#565656] text-white p-6">Supprimer mon compte</button>
+    </div>
+</div>
+{% endblock %}
