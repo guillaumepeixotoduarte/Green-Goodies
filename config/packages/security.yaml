@@ -17,13 +17,20 @@ security:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
 
+        api_login:
+            pattern: ^/api/login
+            stateless: true
+            user_checker: App\Security\ApiUserChecker
+            json_login:
+                check_path: /api/login
+                username_path: username
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
         api:
             pattern: ^/api
             stateless: true
-            json_login:
-                check_path: /api/login_check
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
 
         main:
@@ -46,9 +53,8 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:
