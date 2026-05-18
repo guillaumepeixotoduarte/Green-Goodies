@@ -12,10 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class CartController extends AbstractController
 {
     #[Route('/cart', name: 'app_cart')]
+    #[IsGranted('ROLE_USER')]
     public function index(CartService $cartService, ProductRepository $productRepository): Response
     {
         $cartSession = $cartService->getCart();
@@ -47,6 +49,7 @@ final class CartController extends AbstractController
 
 
     #[Route('/cart/add/{id}', name: 'cart_add', methods: ['POST'], requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_USER')]
     public function add(Product $product, Request $request, CartService $cartService): Response
     {
         // 1. On récupère la quantité depuis le formulaire (par défaut 1)
@@ -65,6 +68,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart/validate', name: 'cart_validate')]
+    #[IsGranted('ROLE_USER')]
     public function validate(CartService $cartService, ProductRepository $productRepository, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -130,6 +134,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart/clear', name: 'cart_clear')]
+    #[IsGranted('ROLE_USER')]
     public function clear(CartService $cartService): Response
     {
         $cartService->clear();
