@@ -44,7 +44,9 @@
         </form>
     </div>
     <div class="w-1/2 mx-auto mt-6 bg-[#FFFDF7] p-12">
-        <button class="w-full bg-[#565656] text-white p-6">Supprimer mon compte</button>
+        <form action="{{ path('app_user_delete') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action supprimera également toutes vos commandes et détails associés de manière irréversible.');">
+            <button type="submit" class="w-full bg-[#565656] text-white p-6">Supprimer mon compte</button>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -22,7 +22,7 @@ class ProductFixtures extends Fixture
             $product->setShortDescription($faker->text(50));
             $product->setFullDescription($faker->text(400));
             $product->setPrice($faker->randomFloat(0, 10, 50));
-            $product->setPicture('img_' . $imageNumber . '.jpg');
+            $product->setPicture('img_' . $imageNumber . '.webp');
 
             $manager->persist($product);
         }
