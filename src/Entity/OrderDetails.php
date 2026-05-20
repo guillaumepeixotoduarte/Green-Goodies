@@ -23,6 +23,7 @@ class OrderDetails
     private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderDetails')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Order $relatedOrder = null;
 
     public function getId(): ?int

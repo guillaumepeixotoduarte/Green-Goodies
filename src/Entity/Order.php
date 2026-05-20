@@ -23,12 +23,13 @@ class Order
     private ?float $total = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $user = null;
 
     /**
      * @var Collection<int, OrderDetails>
      */
-    #[ORM\OneToMany(targetEntity: OrderDetails::class, mappedBy: 'RelatedOrder')]
+    #[ORM\OneToMany(targetEntity: OrderDetails::class, mappedBy: 'relatedOrder', cascade: ['remove'])]
     private Collection $orderDetails;
 
     public function __construct()

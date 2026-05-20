@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class UserController extends AbstractController
@@ -37,5 +38,21 @@ final class UserController extends AbstractController
         $this->addFlash('success', 'Vos accès API ont été mis à jour.');
 
         return $this->redirectToRoute('app_user_account');
+    }
+
+    #[Route('/user/delete', name: 'app_user_delete')]
+    #[IsGranted('ROLE_USER')]
+    public function delete(EntityManagerInterface $entityManager, Request $request, TokenStorageInterface $tokenStorage): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $request->getSession()->invalidate(); // Supprime la session PHP courante
+        $tokenStorage->setToken(null); // Vide le token de sécurité de Symfony
+
+        $this->addFlash('success', 'Votre compte a été supprimé. Nous sommes désolés de vous voir partir.');
+        return $this->redirectToRoute('app_home');
     }
 }
