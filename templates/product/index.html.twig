@@ -30,7 +30,7 @@
                         <form action="{{ path('cart_add', {'id': product.id}) }}" method="POST" class="flex items-center gap-4">
 
                             <!-- Sélecteur de quantité -->
-
+                            {% set panier = app.session.get('panier', []) %}
                             <div class="flex items-center border border-gray-300 h-full bg-gray-50">
                                 <label for="quantity" class="sr-only">Quantité</label>
                                 <input type="number"
