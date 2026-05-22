@@ -30,20 +30,17 @@
                         <form action="{{ path('cart_add', {'id': product.id}) }}" method="POST" class="flex items-center gap-4">
 
                             <!-- Sélecteur de quantité -->
-                            {% set panier = app.session.get('panier', []) %}
-                            {% if panier[product.id] is defined %}
-                                <div class="flex items-center border border-gray-300 h-full bg-gray-50">
-                                    <label for="quantity" class="sr-only">Quantité</label>
-                                    <input type="number"
-                                        id="quantity"
-                                        name="quantity"
-                                        value="{{ panier[product.id].quantity|default(1) }}"
-                                        min="0"
-                                        class="w-16 text-center bg-transparent p-2 font-semibold text-gray-700 outline-none">
-                                </div>
-                            {% else %}
-                                <input type="hidden" name="quantity" value="1">
-                            {% endif %}
+
+                            <div class="flex items-center border border-gray-300 h-full bg-gray-50">
+                                <label for="quantity" class="sr-only">Quantité</label>
+                                <input type="number"
+                                    id="quantity"
+                                    name="quantity"
+                                    value="{{ panier[product.id].quantity|default(1) }}"
+                                    min="0"
+                                    class="w-16 text-center bg-transparent p-2 font-semibold text-gray-700 outline-none">
+                            </div>
+
 
                             <button type="submit" class="p-6 bg-[#565656] text-white block w-full text-center">Ajouter au panier</button>
 
