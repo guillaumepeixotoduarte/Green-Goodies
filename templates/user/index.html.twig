@@ -6,6 +6,11 @@
 
 <div class="bg-[#F7F1EC] w-full flex flex-col flex-wrap flex-grow overflow-hidden  ">
     <h1 class="text-xl text-center font-semibold my-8">Mon compte</h1>
+    {% for message in app.flashes('order_success') %}
+        <div class="w-1/2 mx-auto bg-green-50 border border-green-400 text-green-700 rounded-lg px-12 py-4 mb-2">
+            <p class="text-center font-semibold">{{ message }}</p>
+        </div>
+    {% endfor %}
     <div class="w-1/2 mx-auto bg-[#FFFDF7] p-12">
         <h2 class="text-md font-semibold mb-6">Mes commandes</h2>
         {% if orders|length > 0 %}

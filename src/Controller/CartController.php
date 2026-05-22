@@ -122,7 +122,10 @@ final class CartController extends AbstractController
 
             // 8. C'est seulement ici, après réussite de la BDD, qu'on vide le panier de la session
             $cartService->clear();
-            return $this->redirectToRoute('app_cart');
+            $idCommande = $order->getId();
+            $this->addFlash('order_success', 'Votre commande N°' . $idCommande . ' a bien été validée ! Retrouvez les détails ci-dessous.');
+
+            return $this->redirectToRoute('app_user_account');
 
         } catch (\Exception $e) {
             if ($em->getConnection()->isTransactionActive()) {
